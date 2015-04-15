@@ -8,27 +8,50 @@
 
 import UIKit
 
+var workouts = [Dictionary<String,[String]>()]
+
 class ViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var editDoneButton: UIBarButtonItem!
     @IBOutlet weak var workoutListTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
+        if workouts.count == 1 {
+            
+            workouts.removeAtIndex(0)
+            
+            workouts.append(["name":["Workout 1"], "time":["1:20"], "sets":["3"], "intensity":["83"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
+            workouts.append(["name":["Workout 2"], "time":["12:50"], "sets":["8"], "intensity":["56"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["60","60","60","60","60","60","60","350"], "exerciseIntensities":["60","50","60","55","65","70","50","60"]])
+        }
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 10
+        return workouts.count
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var tableViewCell = UITableViewCell()
+        let tableViewCell = tableView.dequeueReusableCellWithIdentifier("workoutListCell", forIndexPath: indexPath) as! UITableViewCell
+        
+        let thisWorkoutName = workouts[indexPath.row]["name"]!
+        let thisWorkoutTime = workouts[indexPath.row]["time"]!
+        let thisWorkoutSets = workouts[indexPath.row]["sets"]!
+        let thisWorkoutIntensity = workouts[indexPath.row]["intensity"]!
+        
+        let workoutNameLabel = tableViewCell.viewWithTag(101) as! UILabel
+        workoutNameLabel.text = thisWorkoutName[0]
+
+        let workoutTimeLabel = tableViewCell.viewWithTag(102) as! UILabel
+        workoutTimeLabel.text = thisWorkoutTime[0]
+        
+        let workoutSetsLabel = tableViewCell.viewWithTag(103) as! UILabel
+        workoutSetsLabel.text = thisWorkoutSets[0]
         
         return tableViewCell
         
@@ -37,6 +60,46 @@ class ViewController: UIViewController, UITableViewDelegate {
     @IBAction func addNewWorkout(sender: AnyObject) {
         
         
+        
+    }
+
+    @IBAction func edit(sender: AnyObject) {
+        
+        if tableView.editing {
+            
+            tableView.setEditing(false, animated: true)
+            editDoneButton.style = UIBarButtonItemStyle.Done
+            editDoneButton.title = "Edit"
+            
+        } else {
+            
+            tableView.setEditing(true, animated: true)
+            editDoneButton.style = UIBarButtonItemStyle.Plain
+            editDoneButton.title = "Done"
+            
+        }
+        
+    }
+    
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool { return true }
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        
+        let movedWorkout = workouts[fromIndexPath.row]
+        workouts.removeAtIndex(fromIndexPath.row)
+        workouts.insert(movedWorkout, atIndex: toIndexPath.row)
+        
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+
+            workouts.removeAtIndex(indexPath.row)
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+        }
         
     }
 

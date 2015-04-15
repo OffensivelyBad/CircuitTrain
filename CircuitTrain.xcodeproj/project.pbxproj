@@ -407,6 +407,7 @@
 				7105DC6F1AD4251A00C0AAB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7105DC701AD4251A00C0AAB9 /* Build configuration list for PBXNativeTarget "CircuitTrainTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +416,7 @@
 				7105DC721AD4251A00C0AAB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
