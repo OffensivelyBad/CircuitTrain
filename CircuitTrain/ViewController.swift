@@ -9,6 +9,8 @@
 import UIKit
 
 var workouts = [Dictionary<String,[String]>()]
+var workout = Dictionary<String,[String]>()
+var workoutNumber:Int = -1
 
 class ViewController: UIViewController, UITableViewDelegate {
 
@@ -17,15 +19,24 @@ class ViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-    
+        
+        workoutNumber = -1
+        
         if workouts.count == 1 {
             
             workouts.removeAtIndex(0)
             
             workouts.append(["name":["Workout 1"], "time":["1:20"], "sets":["3"], "intensity":["83"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
-            workouts.append(["name":["Workout 2"], "time":["12:50"], "sets":["8"], "intensity":["56"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["60","60","60","60","60","60","60","350"], "exerciseIntensities":["60","50","60","55","65","70","50","60"]])
+            
+            workouts.append(["name":["Workout 2"], "time":["12:50"], "sets":["8"], "intensity":["56"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["60","60","60","60","60","60","60","350"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
+            
         }
+        
+        tableView.allowsSelectionDuringEditing = true
+        
+        
         
     }
     
@@ -54,6 +65,22 @@ class ViewController: UIViewController, UITableViewDelegate {
         workoutSetsLabel.text = thisWorkoutSets[0]
         
         return tableViewCell
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        workoutNumber = indexPath.row
+        
+        if tableView.editing {
+            
+            performSegueWithIdentifier("selectEditSegue", sender: self)
+            
+        } else {
+            
+            performSegueWithIdentifier("selectSelectedSegue", sender: self)
+            
+        }
         
     }
     

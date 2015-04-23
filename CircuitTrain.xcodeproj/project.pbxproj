@@ -13,6 +13,7 @@
 		7105DC5B1AD4251A00C0AAB9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7105DC5A1AD4251A00C0AAB9 /* Images.xcassets */; };
 		7105DC5E1AD4251A00C0AAB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7105DC5C1AD4251A00C0AAB9 /* LaunchScreen.xib */; };
 		7105DC6A1AD4251A00C0AAB9 /* CircuitTrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC691AD4251A00C0AAB9 /* CircuitTrainTests.swift */; };
+		71487BF91AE81AA70053BF92 /* EditWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		7105DC631AD4251A00C0AAB9 /* CircuitTrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircuitTrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7105DC681AD4251A00C0AAB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7105DC691AD4251A00C0AAB9 /* CircuitTrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTrainTests.swift; sourceTree = "<group>"; };
+		71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWorkoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				7105DC531AD4251A00C0AAB9 /* AppDelegate.swift */,
 				7105DC551AD4251A00C0AAB9 /* ViewController.swift */,
+				71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */,
 				7105DC571AD4251A00C0AAB9 /* Main.storyboard */,
 				7105DC5A1AD4251A00C0AAB9 /* Images.xcassets */,
 				7105DC5C1AD4251A00C0AAB9 /* LaunchScreen.xib */,
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71487BF91AE81AA70053BF92 /* EditWorkoutViewController.swift in Sources */,
 				7105DC561AD4251A00C0AAB9 /* ViewController.swift in Sources */,
 				7105DC541AD4251A00C0AAB9 /* AppDelegate.swift in Sources */,
 			);
