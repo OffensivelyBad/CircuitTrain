@@ -9,7 +9,7 @@
 import UIKit
 
 var workouts = [Dictionary<String,[String]>()]
-var workout = Dictionary<String,[String]>()
+var editingWorkout = Dictionary<String, [String]>()
 var workoutNumber:Int = -1
 
 class ViewController: UIViewController, UITableViewDelegate {
