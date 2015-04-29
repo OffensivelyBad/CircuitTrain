@@ -15,7 +15,7 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        editingWorkout = workouts[workoutNumber]
+        //editingWorkout = workouts[workoutNumber]
         
         println(editingWorkout)
         
@@ -41,10 +41,14 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
         
     }
     
+    @IBAction func add(sender: AnyObject) {
+        //add an exercise
+        
+        
+    }
+    
     @IBAction func save(sender: AnyObject) {
-        
-        //add edit of name
-        
+        //add saving of exercises
         if var exerciseTimes = editingWorkout["exerciseTimes"], exerciseIntensities = editingWorkout["exerciseIntensities"], exerciseSets = editingWorkout["exerciseSets"] {
             
             var totalTime:Int = 0
@@ -77,8 +81,6 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
             editingWorkout["sets"]?.append(String(totalSets))
             
             workouts[workoutNumber] = editingWorkout
-            
-            println(workouts[workoutNumber])
             
         }
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29E0CF621AF09EA000433D74 /* NewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0CF611AF09EA000433D74 /* NewExerciseViewController.swift */; };
 		7105DC541AD4251A00C0AAB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC531AD4251A00C0AAB9 /* AppDelegate.swift */; };
 		7105DC561AD4251A00C0AAB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC551AD4251A00C0AAB9 /* ViewController.swift */; };
 		7105DC591AD4251A00C0AAB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7105DC571AD4251A00C0AAB9 /* Main.storyboard */; };
@@ -14,6 +15,8 @@
 		7105DC5E1AD4251A00C0AAB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7105DC5C1AD4251A00C0AAB9 /* LaunchScreen.xib */; };
 		7105DC6A1AD4251A00C0AAB9 /* CircuitTrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC691AD4251A00C0AAB9 /* CircuitTrainTests.swift */; };
 		71487BF91AE81AA70053BF92 /* EditWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */; };
+		71617D3C1AEEFC2700EA16E2 /* NewWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71617D3B1AEEFC2700EA16E2 /* NewWorkoutViewController.swift */; };
+		71617D3E1AEF101B00EA16E2 /* NewHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71617D3D1AEF101B00EA16E2 /* NewHeaderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29E0CF611AF09EA000433D74 /* NewExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewExerciseViewController.swift; sourceTree = "<group>"; };
 		7105DC4E1AD4251A00C0AAB9 /* CircuitTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7105DC521AD4251A00C0AAB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7105DC531AD4251A00C0AAB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +42,8 @@
 		7105DC681AD4251A00C0AAB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7105DC691AD4251A00C0AAB9 /* CircuitTrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTrainTests.swift; sourceTree = "<group>"; };
 		71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWorkoutViewController.swift; sourceTree = "<group>"; };
+		71617D3B1AEEFC2700EA16E2 /* NewWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewController.swift; sourceTree = "<group>"; };
+		71617D3D1AEF101B00EA16E2 /* NewHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHeaderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +87,10 @@
 			children = (
 				7105DC531AD4251A00C0AAB9 /* AppDelegate.swift */,
 				7105DC551AD4251A00C0AAB9 /* ViewController.swift */,
+				29E0CF611AF09EA000433D74 /* NewExerciseViewController.swift */,
+				71617D3D1AEF101B00EA16E2 /* NewHeaderViewController.swift */,
 				71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */,
+				71617D3B1AEEFC2700EA16E2 /* NewWorkoutViewController.swift */,
 				7105DC571AD4251A00C0AAB9 /* Main.storyboard */,
 				7105DC5A1AD4251A00C0AAB9 /* Images.xcassets */,
 				7105DC5C1AD4251A00C0AAB9 /* LaunchScreen.xib */,
@@ -216,8 +225,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				71487BF91AE81AA70053BF92 /* EditWorkoutViewController.swift in Sources */,
+				71617D3E1AEF101B00EA16E2 /* NewHeaderViewController.swift in Sources */,
+				71617D3C1AEEFC2700EA16E2 /* NewWorkoutViewController.swift in Sources */,
 				7105DC561AD4251A00C0AAB9 /* ViewController.swift in Sources */,
 				7105DC541AD4251A00C0AAB9 /* AppDelegate.swift in Sources */,
+				29E0CF621AF09EA000433D74 /* NewExerciseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

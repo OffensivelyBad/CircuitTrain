@@ -10,7 +10,10 @@ import UIKit
 
 var workouts = [Dictionary<String,[String]>()]
 var editingWorkout = Dictionary<String, [String]>()
+var newWorkout = Dictionary<String, [String]>()
 var workoutNumber:Int = -1
+var firstLoad:Bool = true
+var addNew:Bool = true
 
 class ViewController: UIViewController, UITableViewDelegate {
 
@@ -24,19 +27,15 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         workoutNumber = -1
         
-        if workouts.count == 1 {
+        if firstLoad {
             
-            workouts.removeAtIndex(0)
-            
-            workouts.append(["name":["Workout 1"], "time":["1:20"], "sets":["3"], "intensity":["83"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
-            
-            workouts.append(["name":["Workout 2"], "time":["12:50"], "sets":["8"], "intensity":["56"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["60","60","60","60","60","60","60","350"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
+            initialLoad()
             
         }
         
+        editingWorkout = [:]
+        
         tableView.allowsSelectionDuringEditing = true
-        
-        
         
     }
     
@@ -74,7 +73,9 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         if tableView.editing {
             
-            performSegueWithIdentifier("selectEditSegue", sender: self)
+            addNew = false
+            
+            performSegueWithIdentifier("listNewSegue", sender: self)
             
         } else {
             
@@ -86,7 +87,9 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     @IBAction func addNewWorkout(sender: AnyObject) {
         
+        addNew = true
         
+        performSegueWithIdentifier("listNewSegue", sender: sender)
         
     }
 
@@ -127,6 +130,49 @@ class ViewController: UIViewController, UITableViewDelegate {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             
         }
+        
+    }
+    
+    func initialLoad() {
+        
+        //remove initial placeholder record
+        if workouts.count == 1 { workouts.removeAtIndex(0) }
+        
+        //get workouts from server
+        let urlPath = "http://104.236.180.121:8080/iOS/CircuitTrain/workouts/default.json"
+        let url = NSURL(string: urlPath)
+        let request = NSURLRequest(URL: url!)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+            
+            if let httpResponse = response as? NSHTTPURLResponse {
+                
+                if httpResponse.statusCode == 404 || error != nil {
+                    
+                    println("\(httpResponse) \(error)")
+                    
+                    workouts.append(["name":["Workout 1"], "time":["80"], "sets":["3"], "intensity":["83"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
+                    
+                    workouts.append(["name":["Workout 2"], "time":["770"], "sets":["8"], "intensity":["56"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["60","60","60","60","60","60","60","350"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
+                    
+                } else {
+                    
+                    let jsonWorkout = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray
+                    
+                    for workout in jsonWorkout {
+                        
+                        workouts.append(workout as! Dictionary<String, [String]>)
+                        
+                    }
+                    
+                }
+                
+                self.tableView.reloadData()
+                
+            }
+            
+        })
+        
+        firstLoad = false
         
     }
 
