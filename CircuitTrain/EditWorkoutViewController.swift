@@ -15,7 +15,7 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //editingWorkout = workouts[workoutNumber]
+        exerciseNumber = -1
         
         println(editingWorkout)
         
@@ -25,15 +25,11 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        var exerciseCount:Int
+        var exerciseCount:Int = 0
         
         if let exercises = editingWorkout["exercises"] {
         
             exerciseCount =  exercises.count
-            
-        } else {
-            
-            exerciseCount = 1
             
         }
         
@@ -42,8 +38,18 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func add(sender: AnyObject) {
-        //add an exercise
         
+        if let exerciseArray = editingWorkout["exercises"] {
+            
+            exerciseNumber = exerciseArray.count
+            
+        } else {
+            
+            exerciseNumber = 0
+            
+        }
+        
+        performSegueWithIdentifier("editNewSegue", sender: sender)
         
     }
     
@@ -99,34 +105,23 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
         
         let tableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         
-        if let thisExerciseArray = editingWorkout["exercises"] {
-        
+        //add exerciseIntensity
+        if let thisExerciseArray = editingWorkout["exercises"], thisExerciseTimeArray = editingWorkout["exerciseTimes"], thisExerciseSetArray = editingWorkout["exerciseSets"] {
+            
             let thisExerciseName = thisExerciseArray[indexPath.row]
             let thisExerciseNameLabel = tableViewCell.viewWithTag(201) as! UILabel
             thisExerciseNameLabel.text = thisExerciseName
-        
-        }
-        if let thisExerciseTimeArray = editingWorkout["exerciseTimes"] {
             
             let thisExerciseTime = thisExerciseTimeArray[indexPath.row]
             let thisExerciseTimeLabel = tableViewCell.viewWithTag(202) as! UILabel
             thisExerciseTimeLabel.text = thisExerciseTime
             
-        }
-        if let thisExerciseSetArray = editingWorkout["exerciseSets"] {
-            
             let thisExerciseSet = thisExerciseSetArray[indexPath.row]
             let thisExerciseSetLabel = tableViewCell.viewWithTag(203) as! UILabel
             thisExerciseSetLabel.text = thisExerciseSet
             
+            
         }
-//        if let thisExerciseIntensityArray = editingWorkout["exerciseIntensities"] {
-//            
-//            let thisExerciseIntensity = thisExerciseIntensityArray[indexPath.row]
-//            let thisExerciseIntensityLabel = tableViewCell.viewWithTag(204) as! UILabel
-//            thisExerciseIntensityLabel.text = thisExerciseIntensity
-//            
-//        }
         
         return tableViewCell
         
@@ -143,8 +138,6 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
             } else if title == "Save" {
                 
                 println("saved")
-                
-                workouts[workoutNumber] = editingWorkout
                 
             }
         
@@ -204,8 +197,6 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
          
             }
-            
-            println(editingWorkout)
             
         }
         

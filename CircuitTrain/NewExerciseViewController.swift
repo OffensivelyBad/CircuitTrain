@@ -13,7 +13,20 @@ class NewExerciseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let exerciseArray = editingWorkout["exercises"] {
+            
+            if exerciseNumber < exerciseArray.count {
+                //existing exercise
+                
+                
+            } else {
+                //new exercise
+                
+                
+            }
+            
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
