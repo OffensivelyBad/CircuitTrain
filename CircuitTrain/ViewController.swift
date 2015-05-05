@@ -15,6 +15,7 @@ var workoutNumber:Int = -1
 var exerciseNumber:Int = -1
 var firstLoad:Bool = true
 var addNew:Bool = true
+var defaultExercises = [String]()
 
 class ViewController: UIViewController, UITableViewDelegate {
 
@@ -168,6 +169,35 @@ class ViewController: UIViewController, UITableViewDelegate {
                 }
                 
                 self.tableView.reloadData()
+                
+            }
+            
+        })
+        
+        let urlPathExercises = "http://104.236.180.121:8080/iOS/CircuitTrain/exercises/default.json"
+        let urlExercises = NSURL(string: urlPathExercises)
+        let requestExercises = NSURLRequest(URL: urlExercises!)
+        NSURLConnection.sendAsynchronousRequest(requestExercises, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+            
+            if let httpResponse = response as? NSHTTPURLResponse {
+                
+                if httpResponse.statusCode == 404 || error != nil {
+                    
+                    println("\(httpResponse) \(error)")
+                    
+                    defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
+                    
+                } else {
+                    
+                    let jsonExercises = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray
+                    
+                    for exercise in jsonExercises {
+                        
+                        defaultExercises.append(exercise as! String)
+                        
+                    }
+                    
+                }
                 
             }
             
