@@ -17,8 +17,6 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
         
         exerciseNumber = -1
         
-        println(editingWorkout)
-        
         tableView.setEditing(true, animated: false)
         
     }

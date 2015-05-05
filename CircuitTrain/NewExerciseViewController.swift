@@ -25,7 +25,7 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
     var minutes = [String]()
     var sets = [Int]()
     var minutesTitle = "00"
-    var secondsTitle = "01"
+    var secondsTitle = "00"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +42,13 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
                 
             } else {
                 //new exercise
-                
+                exerciseLabel.text = defaultExercises[0]
+                timeLabel.text = "\(minutesTitle):\(secondsTitle)"
+                setsLabel.text = String(sets[0])
                 
             }
             
         }
-        
-        exerciseLabel.text = defaultExercises[0]
-        timeLabel.text = "\(minutesTitle):\(secondsTitle)"
-        setsLabel.text = String(sets[0])
         
     }
     
@@ -104,9 +102,9 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
             } else if component == 2 {
                 return seconds[row]
             } else if component == 1 {
-                return "m"
+                return "min"
             } else if component == 3 {
-                return "s"
+                return "sec"
             }
             
         } else if pickerView.tag == 401 {
@@ -166,7 +164,54 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
                 setsLabel.text = String(sets[row])
             
             }
+            
+            if component == 1 {
+                
+                if pickerView.selectedRowInComponent(0) == 0 {
+                    
+                    pickerView.selectRow(0, inComponent: 1, animated: true)
+                    
+                } else {
+                    
+                    pickerView.selectRow(1, inComponent: 1, animated: true)
+                    
+                }
+                
+            }
         }
+        
+    }
+    
+    func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        
+        if pickerView.tag == 401 {
+            
+            return 200
+            
+        } else if pickerView.tag == 402 {
+            switch component {
+            case 0,2:
+                return 40
+            case 1,3:
+                return 50
+            default:
+                return 100
+            }
+            
+        } else if pickerView.tag == 403 {
+            
+            switch component {
+            case 0:
+                return 40
+            case 1:
+                return 60
+            default:
+                return 100
+            }
+            
+        }
+        
+        return 0
         
     }
     
@@ -228,30 +273,6 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
         
     }
     
-    func layout(position: Int) {
-        
-        if position == 0 {
-                
-                self.exercisePicker.center = CGPointMake(self.center, self.exercisePicker.center.y)
-                self.timePicker.center = CGPointMake(self.center + 400, self.timePicker.center.y)
-                self.setsPicker.center = CGPointMake(self.center + 800, self.setsPicker.center.y)
-            
-        } else if position == 1 {
-                
-                self.exercisePicker.center = CGPointMake(self.center - 400, self.exercisePicker.center.y)
-                self.timePicker.center = CGPointMake(self.center, self.timePicker.center.y)
-                self.setsPicker.center = CGPointMake(self.center + 400, self.setsPicker.center.y)
-            
-        } else if position == 2 {
-                
-                self.exercisePicker.center = CGPointMake(self.center - 800, self.exercisePicker.center.y)
-                self.timePicker.center = CGPointMake(self.center - 400, self.timePicker.center.y)
-                self.setsPicker.center = CGPointMake(self.center, self.setsPicker.center.y)
-            
-        }
-        
-    }
-    
     override func viewDidLayoutSubviews() {
          
         initialSetup()
@@ -260,13 +281,31 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
     
     func initialSetup() {
         
-        layout(activePicker)
+        if activePicker == 0 {
+            
+            self.exercisePicker.center = CGPointMake(self.center, self.exercisePicker.center.y)
+            self.timePicker.center = CGPointMake(self.center + 400, self.timePicker.center.y)
+            self.setsPicker.center = CGPointMake(self.center + 800, self.setsPicker.center.y)
+            
+        } else if activePicker == 1 {
+            
+            self.exercisePicker.center = CGPointMake(self.center - 400, self.exercisePicker.center.y)
+            self.timePicker.center = CGPointMake(self.center, self.timePicker.center.y)
+            self.setsPicker.center = CGPointMake(self.center + 400, self.setsPicker.center.y)
+            
+        } else if activePicker == 2 {
+            
+            self.exercisePicker.center = CGPointMake(self.center - 800, self.exercisePicker.center.y)
+            self.timePicker.center = CGPointMake(self.center - 400, self.timePicker.center.y)
+            self.setsPicker.center = CGPointMake(self.center, self.setsPicker.center.y)
+            
+        }
 
     }
     
     func loadArrays() {
         
-        for i in 01...60 {
+        for i in 0...60 {
             
             seconds.append(String(format: "%02d", i))
             minutes.append(String(format: "%02d", i))
@@ -278,8 +317,6 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
             sets.append(i)
             
         }
-        
-        println("\(seconds),\(minutes),\(sets)")
         
     }
 

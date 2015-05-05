@@ -44,8 +44,6 @@ class NewHeaderViewController: UIViewController {
             
         }
         
-        println(editingWorkout)
-        
     }
     
     @IBAction func next(sender: AnyObject) {
