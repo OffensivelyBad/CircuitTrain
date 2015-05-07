@@ -139,6 +139,10 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
                 
             }
         
+        } else {
+            
+            println("page")
+            
         }
         
     }
@@ -197,6 +201,12 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
             }
             
         }
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+
         
     }
 

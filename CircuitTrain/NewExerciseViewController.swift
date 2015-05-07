@@ -18,14 +18,26 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet weak var timeLabel: UITextField!
     @IBOutlet weak var setsLabel: UITextField!
     
+    var itemIndex: Int = 0
     var center:CGFloat = 0
     var activePicker = 0
-    var firstRun:Bool = true
+//    var firstRun:Bool = true
     var seconds = [String]()
     var minutes = [String]()
     var sets = [Int]()
     var minutesTitle = "00"
     var secondsTitle = "00"
+    var exerciseName: String = "" {
+        
+        didSet {
+            
+            if let exerciseNameView = exerciseLabel {
+                exerciseNameView.text = exerciseName
+            }
+            
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,21 +46,23 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
         
         center = exercisePicker.center.x
         
-        if let exerciseArray = editingWorkout["exercises"] {
-            
-            if exerciseNumber < exerciseArray.count {
-                //existing exercise
-                
-                
-            } else {
-                //new exercise
-                exerciseLabel.text = defaultExercises[0]
-                timeLabel.text = "\(minutesTitle):\(secondsTitle)"
-                setsLabel.text = String(sets[0])
-                
-            }
-            
-        }
+        exerciseLabel.text = exerciseName
+        
+//        if let exerciseArray = editingWorkout["exercises"] {
+//            
+//            if exerciseNumber < exerciseArray.count {
+//                //existing exercise
+//                
+//                
+//            } else {
+//                //new exercise
+//                exerciseLabel.text = defaultExercises[0]
+//                timeLabel.text = "\(minutesTitle):\(secondsTitle)"
+//                setsLabel.text = String(sets[0])
+//                
+//            }
+//            
+//        }
         
     }
     

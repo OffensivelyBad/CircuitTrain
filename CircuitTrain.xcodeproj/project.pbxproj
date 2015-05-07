@@ -17,6 +17,7 @@
 		71487BF91AE81AA70053BF92 /* EditWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */; };
 		71617D3C1AEEFC2700EA16E2 /* NewWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71617D3B1AEEFC2700EA16E2 /* NewWorkoutViewController.swift */; };
 		71617D3E1AEF101B00EA16E2 /* NewHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71617D3D1AEF101B00EA16E2 /* NewHeaderViewController.swift */; };
+		71BE86E31AFB310C00542DE3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BE86E21AFB310C00542DE3 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWorkoutViewController.swift; sourceTree = "<group>"; };
 		71617D3B1AEEFC2700EA16E2 /* NewWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewController.swift; sourceTree = "<group>"; };
 		71617D3D1AEF101B00EA16E2 /* NewHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHeaderViewController.swift; sourceTree = "<group>"; };
+		71BE86E21AFB310C00542DE3 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				71487BF81AE81AA70053BF92 /* EditWorkoutViewController.swift */,
 				71617D3B1AEEFC2700EA16E2 /* NewWorkoutViewController.swift */,
 				7105DC571AD4251A00C0AAB9 /* Main.storyboard */,
+				71BE86E21AFB310C00542DE3 /* PageViewController.swift */,
 				7105DC5A1AD4251A00C0AAB9 /* Images.xcassets */,
 				7105DC5C1AD4251A00C0AAB9 /* LaunchScreen.xib */,
 				7105DC511AD4251A00C0AAB9 /* Supporting Files */,
@@ -225,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71487BF91AE81AA70053BF92 /* EditWorkoutViewController.swift in Sources */,
+				71BE86E31AFB310C00542DE3 /* PageViewController.swift in Sources */,
 				71617D3E1AEF101B00EA16E2 /* NewHeaderViewController.swift in Sources */,
 				71617D3C1AEEFC2700EA16E2 /* NewWorkoutViewController.swift in Sources */,
 				7105DC561AD4251A00C0AAB9 /* ViewController.swift in Sources */,
