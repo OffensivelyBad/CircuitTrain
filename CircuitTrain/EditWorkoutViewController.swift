@@ -15,6 +15,8 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        previousView = "Edit"
+        
         exerciseNumber = -1
         
         tableView.setEditing(true, animated: false)
@@ -139,10 +141,6 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
                 
             }
         
-        } else {
-            
-            println("page")
-            
         }
         
     }
@@ -165,9 +163,9 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
             thisExerciseSetArray.removeAtIndex(fromIndexPath.row)
             thisExerciseSetArray.insert(movedExerciseSet, atIndex: toIndexPath.row)
             
-            let movedExerciseIntensity = thisExerciseIntensityArray[fromIndexPath.row]
-            thisExerciseIntensityArray.removeAtIndex(fromIndexPath.row)
-            thisExerciseIntensityArray.insert(movedExerciseIntensity, atIndex: toIndexPath.row)
+//            let movedExerciseIntensity = thisExerciseIntensityArray[fromIndexPath.row]
+//            thisExerciseIntensityArray.removeAtIndex(fromIndexPath.row)
+//            thisExerciseIntensityArray.insert(movedExerciseIntensity, atIndex: toIndexPath.row)
             
             editingWorkout["exercises"] = thisExerciseArray
             editingWorkout["exerciseTimes"] = thisExerciseTimeArray
@@ -189,7 +187,7 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
                 
                 thisExerciseSetArray.removeAtIndex(indexPath.row)
                 
-                thisExerciseIntensityArray.removeAtIndex(indexPath.row)
+                //thisExerciseIntensityArray.removeAtIndex(indexPath.row)
                 
                 editingWorkout["exercises"] = thisExerciseArray
                 editingWorkout["exerciseTimes"] = thisExerciseTimeArray
@@ -206,7 +204,9 @@ class EditWorkoutViewController: UIViewController, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-
+        exerciseNumber = indexPath.row
+        
+        performSegueWithIdentifier("editPageSegue", sender: self)
         
     }
 

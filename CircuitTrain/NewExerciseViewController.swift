@@ -21,7 +21,6 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
     var itemIndex: Int = 0
     var center:CGFloat = 0
     var activePicker = 0
-//    var firstRun:Bool = true
     var seconds = [String]()
     var minutes = [String]()
     var sets = [Int]()
@@ -38,33 +37,100 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
         }
         
     }
+    var exerciseTime: String = "" {
+        
+        didSet {
+            
+            if let exerciseTimeView = timeLabel {
+                exerciseTimeView.text = exerciseTime
+            }
+            
+        }
+        
+    }
+    var exerciseSets: String = "" {
+        
+        didSet {
+            
+            if let exerciseSetsView = setsLabel {
+                exerciseSetsView.text = exerciseSets
+            }
+            
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         loadArrays()
         
         center = exercisePicker.center.x
         
-        exerciseLabel.text = exerciseName
-        
-//        if let exerciseArray = editingWorkout["exercises"] {
-//            
-//            if exerciseNumber < exerciseArray.count {
-//                //existing exercise
-//                
-//                
-//            } else {
-//                //new exercise
-//                exerciseLabel.text = defaultExercises[0]
-//                timeLabel.text = "\(minutesTitle):\(secondsTitle)"
-//                setsLabel.text = String(sets[0])
-//                
-//            }
-//            
-//        }
+        setDefaults()
         
     }
+    
+    @IBAction func done(sender: AnyObject) {
+        
+        save()
+        
+        performSegueWithIdentifier("page\(previousView)Segue", sender: sender)
+        
+    }
+    
+    func save() {
+        
+        contentExercises[exerciseNumber] = exerciseLabel.text
+        contentSets[exerciseNumber] = setsLabel.text
+        
+        var time = timeLabel.text
+        var minIndexStart = time.startIndex
+        var minIndexEnd = find(time, ":")
+        var minRange = minIndexStart..<minIndexEnd!
+        var minInt = time.substringWithRange(minRange).toInt()! * 60
+        var secIndexStart = advance(time.startIndex,3)
+        var secIndexEnd = time.endIndex
+        var secRange = secIndexStart..<secIndexEnd
+        var secInt = time.substringWithRange(secRange).toInt()
+        var totalTime = minInt + secInt!
+        
+        contentTime[exerciseNumber] = String(totalTime)
+        
+        editingWorkout["exercises"] = contentExercises
+        editingWorkout["exerciseTimes"] = contentTime
+        editingWorkout["exerciseSets"] = contentSets
+        
+    }
+    
+    @IBAction func add(sender: AnyObject) {
+        
+        save()
+        
+        if let totalExercises = editingWorkout["exercises"] {
+            
+            exerciseNumber = totalExercises.count
+            
+        }
+        
+        performSegueWithIdentifier("addPageSegue", sender: sender)
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if sender?.title == "Done" {
+            
+            println("done")
+            
+        } else if sender?.tag == 501 {
+            
+            println("add")
+            
+        }
+        
+    }
+    
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
@@ -143,6 +209,8 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        //add save for the exercises
+        
         if pickerView.tag == 401 {
             
             exerciseLabel.text = defaultExercises[row]
@@ -194,6 +262,8 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
             }
         }
         
+        save()
+        
     }
     
     func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
@@ -226,12 +296,6 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
         }
         
         return 0
-        
-    }
-    
-    @IBAction func step(sender: AnyObject) {
-        
-        
         
     }
     
@@ -331,6 +395,62 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
             sets.append(i)
             
         }
+        
+    }
+    
+    func setDefaults() {
+        
+        var sec:Int = exerciseTime.toInt()! % 60
+        var min:Int = (exerciseTime.toInt()! - sec) / 60
+        var minString = String(format: "%02d", min)
+        var secString = String(format: "%02d", sec)
+        var secToMin = minString + ":" + secString
+        
+        timeLabel.text = secToMin
+        setsLabel.text = exerciseSets
+        exerciseLabel.text = exerciseName
+        
+        save()
+        
+        var defaultExercise = 0
+        var e = 0
+        while e < defaultExercises.count {
+            if exerciseName == defaultExercises[e] {
+                defaultExercise = e
+            }
+            e++
+        }
+        exercisePicker.selectRow(defaultExercise, inComponent: 0, animated: true)
+        
+        var defaultSet = 0
+        var s = 0
+        while s < sets.count {
+            if exerciseSets == String(sets[s]) {
+                defaultSet = s
+            }
+            s++
+        }
+        setsPicker.selectRow(defaultSet, inComponent: 0, animated: true)
+        
+        var defaultMin = 0
+        var tm = 0
+        while tm < minutes.count {
+            if minString == minutes[tm] {
+                defaultMin = tm
+            }
+            tm++
+        }
+        timePicker.selectRow(defaultMin, inComponent: 0, animated: true)
+        
+        var defaultSec = 0
+        var ts = 0
+        while ts < seconds.count {
+            if secString == seconds[ts] {
+                defaultSec = ts
+            }
+            ts++
+        }
+        timePicker.selectRow(defaultSec, inComponent: 1, animated: true)
         
     }
 

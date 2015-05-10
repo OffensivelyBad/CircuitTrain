@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -353,8 +353,16 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="NewExercise" id="TFb-Sc-4h8">
-                                        <barButtonItem key="leftBarButtonItem" title="Done" id="MsD-90-rxd"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TTZ-TA-9JU"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Done" id="MsD-90-rxd">
+                                            <connections>
+                                                <action selector="done:" destination="tOa-nF-x5O" id="4NP-Vp-2PL"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" tag="501" systemItem="add" id="TTZ-TA-9JU">
+                                            <connections>
+                                                <action selector="add:" destination="tOa-nF-x5O" id="0Nn-Qv-CVQ"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -388,16 +396,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="1TF-k1-EN3">
-                                <rect key="frame" x="140" y="368" width="94" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="bsR-JB-StU"/>
-                                    <constraint firstAttribute="height" constant="29" id="fv9-OT-FIz"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="step:" destination="tOa-nF-x5O" eventType="valueChanged" id="i4T-2x-7k7"/>
-                                </connections>
-                            </stepper>
                             <textField opaque="NO" clipsSubviews="YES" tag="451" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H5b-wb-zKf">
                                 <rect key="frame" x="93" y="128" width="189" height="30"/>
                                 <constraints>
@@ -471,7 +469,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="60L-hY-PPO" secondAttribute="centerX" id="19D-xH-BUs"/>
-                            <constraint firstItem="1TF-k1-EN3" firstAttribute="leading" secondItem="Rik-QQ-enV" secondAttribute="leadingMargin" constant="124" id="1KG-su-h0F"/>
                             <constraint firstItem="Usq-bX-9az" firstAttribute="top" secondItem="60L-hY-PPO" secondAttribute="bottom" constant="39" id="3DM-px-lCF"/>
                             <constraint firstItem="OG7-UM-Rio" firstAttribute="leading" secondItem="Rik-QQ-enV" secondAttribute="leadingMargin" constant="77" id="HyN-xh-OjW"/>
                             <constraint firstItem="J5p-ZL-5X5" firstAttribute="leading" secondItem="Rik-QQ-enV" secondAttribute="leadingMargin" constant="84" id="KCC-X7-KRJ"/>
@@ -489,7 +486,6 @@
                             <constraint firstItem="H5b-wb-zKf" firstAttribute="leading" secondItem="Rik-QQ-enV" secondAttribute="leadingMargin" constant="77" id="sxl-Ul-igY"/>
                             <constraint firstItem="SOn-sv-PQz" firstAttribute="top" secondItem="idC-ZU-fjX" secondAttribute="bottom" constant="8" id="v2n-er-KQG"/>
                             <constraint firstAttribute="centerX" secondItem="AxK-cl-08s" secondAttribute="centerX" id="y0o-mN-lGY"/>
-                            <constraint firstItem="1TF-k1-EN3" firstAttribute="top" secondItem="OG7-UM-Rio" secondAttribute="bottom" constant="76" id="yyz-Dk-8R6"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -498,9 +494,11 @@
                         <outlet property="exercisePicker" destination="60L-hY-PPO" id="9Z8-di-x1q"/>
                         <outlet property="setsLabel" destination="OG7-UM-Rio" id="d2G-BT-gSz"/>
                         <outlet property="setsPicker" destination="8uZ-1L-iKH" id="gaw-nR-hf2"/>
-                        <outlet property="stepper" destination="1TF-k1-EN3" id="SfX-1E-0eb"/>
                         <outlet property="timeLabel" destination="SOn-sv-PQz" id="l5x-Wg-POY"/>
                         <outlet property="timePicker" destination="AxK-cl-08s" id="GGQ-0r-uKo"/>
+                        <segue destination="yuw-Bq-6Us" kind="show" identifier="pageNewSegue" id="Nua-vH-TDH"/>
+                        <segue destination="TXe-wH-N65" kind="show" identifier="pageEditSegue" id="7Ws-bW-jQI"/>
+                        <segue destination="Fb5-eQ-sfG" kind="presentation" identifier="addPageSegue" modalTransitionStyle="crossDissolve" id="k6f-bb-myo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GH5-nY-Oar" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -705,7 +703,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ixZ-vC-ve8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ixZ-vC-ve8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -791,11 +789,6 @@
                                     <constraint firstAttribute="height" constant="44" id="zDR-of-dgK"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Item" id="evO-53-Qwg">
-                                        <connections>
-                                            <segue destination="Fb5-eQ-sfG" kind="show" id="nlh-xC-ttv"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="U3x-B9-9Wm"/>
                                     <barButtonItem systemItem="add" id="hAP-Hk-qkx">
                                         <connections>
@@ -824,7 +817,8 @@
                     <connections>
                         <outlet property="tableView" destination="ixZ-vC-ve8" id="WY3-Kz-pXz"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="editSelectSegue" id="gCh-kO-Pum"/>
-                        <segue destination="tOa-nF-x5O" kind="show" identifier="editNewSegue" id="Uks-67-Kyb"/>
+                        <segue destination="Fb5-eQ-sfG" kind="show" identifier="editPageSegue" id="p9c-jL-v1b"/>
+                        <segue destination="Fb5-eQ-sfG" kind="show" identifier="editNewSegue" id="cis-uC-h6c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N3A-ZH-rH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -834,6 +828,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="gCh-kO-Pum"/>
-        <segue reference="Uks-67-Kyb"/>
+        <segue reference="7Ws-bW-jQI"/>
+        <segue reference="Nua-vH-TDH"/>
+        <segue reference="k6f-bb-myo"/>
     </inferredMetricsTieBreakers>
 </document>

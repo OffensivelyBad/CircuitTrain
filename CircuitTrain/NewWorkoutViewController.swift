@@ -15,6 +15,8 @@ class NewWorkoutViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        previousView = "New"
+        
         exerciseNumber = -1
 
         if let exercises = editingWorkout["exercises"] {

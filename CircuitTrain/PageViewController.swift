@@ -8,16 +8,39 @@
 
 import UIKit
 
+var contentExercises = editingWorkout["exercises"]!
+var contentTime = editingWorkout["exerciseTimes"]!
+var contentSets = editingWorkout["exerciseSets"]!
+
 class PageViewController: UIViewController, UIPageViewControllerDataSource {
     
     var pageViewController: UIPageViewController?
     
-    var contentExercises:NSArray = editingWorkout["exercises"]!
+    var firstItem:Int = exerciseNumber
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if firstItem >= contentExercises.count {
+            
+            self.addNew(firstItem)
+            
+        }
+        
         createPageViewController()
         setupPageControl()
+    }
+    
+    func addNew(newIndex: Int) {
+        
+        contentExercises.append(defaultExercises[0])
+        contentTime.append("0")
+        contentSets.append("1")
+        
+        editingWorkout["exercises"] = contentExercises
+        editingWorkout["exerciseTimes"] = contentTime
+        editingWorkout["exerciseSets"] = contentSets
+        
     }
     
     private func createPageViewController() {
@@ -26,7 +49,7 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
         pageController.dataSource = self
         
         if contentExercises.count > 0 {
-            let firstController = getItemController(0)!
+            let firstController = getItemController(firstItem)!
             let startingViewControllers: NSArray = [firstController]
             pageController.setViewControllers(startingViewControllers as [AnyObject], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
         }
@@ -72,9 +95,10 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
         if itemIndex < contentExercises.count {
             let pageItemController = self.storyboard!.instantiateViewControllerWithIdentifier("NewExerciseViewController") as! NewExerciseViewController
             pageItemController.itemIndex = itemIndex
-            pageItemController.exerciseName = contentExercises[itemIndex] as! String
-            
-            println(pageItemController.exerciseName)
+            pageItemController.exerciseName = contentExercises[itemIndex]
+            pageItemController.exerciseTime = contentTime[itemIndex]
+            pageItemController.exerciseSets = contentSets[itemIndex]
+            exerciseNumber = itemIndex
             
             return pageItemController
         }
@@ -88,7 +112,7 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
+        return exerciseNumber
     }
     
     override func didReceiveMemoryWarning() {

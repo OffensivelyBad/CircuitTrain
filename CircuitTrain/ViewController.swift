@@ -16,6 +16,7 @@ var exerciseNumber:Int = -1
 var firstLoad:Bool = true
 var addNew:Bool = true
 var defaultExercises = [String]()
+var previousView:String = ""
 
 class ViewController: UIViewController, UITableViewDelegate {
 
