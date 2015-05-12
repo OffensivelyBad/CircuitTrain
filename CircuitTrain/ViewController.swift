@@ -11,6 +11,7 @@ import UIKit
 var workouts = [Dictionary<String,[String]>()]
 var editingWorkout = Dictionary<String, [String]>()
 var newWorkout = Dictionary<String, [String]>()
+var selectedWorkout = Dictionary<String, [String]>()
 var workoutNumber:Int = -1
 var exerciseNumber:Int = -1
 var firstLoad:Bool = true
