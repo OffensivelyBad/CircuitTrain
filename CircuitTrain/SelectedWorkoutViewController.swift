@@ -10,7 +10,9 @@ import UIKit
 
 class SelectedWorkoutViewController: UIViewController {
 
-    @IBOutlet weak var timerLabel: UILabel!
+
+    @IBOutlet weak var minutesLabel: UILabel!
+    @IBOutlet weak var secondsLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var exerciseLabel: UILabel!
     @IBOutlet weak var workoutTitle: UINavigationItem!
@@ -23,7 +25,8 @@ class SelectedWorkoutViewController: UIViewController {
     var exerciseTimes = [Int]()
     var exerciseSets = [Int]()
     var exerciseNumber:Int = 0
-    
+    var timer = NSTimer()
+    var currentTime: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +56,7 @@ class SelectedWorkoutViewController: UIViewController {
     
     @IBAction func play(sender: AnyObject) {
         
-        
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true)
         
     }
     
@@ -66,6 +69,22 @@ class SelectedWorkoutViewController: UIViewController {
     func reset() {
         
         
+        
+    }
+    
+    func updateTime() {
+        
+        --currentTime
+        setTimerLabel(currentTime)
+        
+        if currentTime < 0 {
+            if exerciseNumber + 1 < exercises.count {
+                setExercise(exerciseNumber + 1)
+            } else {
+                println("stop")
+                timer.invalidate()
+            }
+        }
         
     }
     
@@ -89,18 +108,53 @@ class SelectedWorkoutViewController: UIViewController {
                 let exercise = stringExercises[i]
                 self.exercises.append(exercise)
             }
+            
         }
         if let stringExerciseTimes = selectedWorkout["exerciseTimes"] {
             for var i = 0; i < stringExerciseTimes.count; ++i {
                 let time = stringExerciseTimes[i]
                 self.exerciseTimes.append(time.toInt()!)
             }
+            
         }
         if let stringExerciseSets = selectedWorkout["exerciseSets"] {
             for var i = 0; i < stringExerciseSets.count; ++i {
                 let set = stringExerciseSets[i]
                 self.exerciseSets.append(set.toInt()!)
             }
+        }
+        
+        setExercise(exerciseNumber)
+        
+    }
+    
+    func setExercise(exNum: Int) {
+        
+        exerciseNumber = exNum
+        exerciseLabel.text = exercises[exerciseNumber]
+        currentTime = exerciseTimes[exerciseNumber]
+        setTimerLabel(currentTime)
+        
+    }
+    
+    func convertTime(seconds: Int) -> (String, String) {
+        
+        var min = seconds / 60
+        var sec = (seconds % 60) % 60
+        
+        return (String(format: "%02d", min), String(format: "%02d", sec))
+        
+    }
+    
+    func setTimerLabel(time: Int) {
+        
+        let (m,s) = convertTime(time)
+        
+        minutesLabel.text = m
+        if s.toInt() < 0 {
+            secondsLabel.text = "00"
+        } else {
+            secondsLabel.text = s
         }
         
     }
@@ -110,15 +164,4 @@ class SelectedWorkoutViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
