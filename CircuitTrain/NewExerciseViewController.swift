@@ -62,6 +62,8 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        println(exerciseName)
     
         loadArrays()
         

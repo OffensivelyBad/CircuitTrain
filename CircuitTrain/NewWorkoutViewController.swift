@@ -91,6 +91,41 @@ class NewWorkoutViewController: UIViewController, UITableViewDelegate {
 
     @IBAction func save(sender: AnyObject) {
         
+        if var exerciseTimes = editingWorkout["exerciseTimes"], exerciseIntensities = editingWorkout["exerciseIntensities"], exerciseSets = editingWorkout["exerciseSets"] {
+            
+            var totalTime:Int = 0
+            var totalIntensity:Int = 0
+            var totalSets:Int = 0
+            
+            for times in exerciseTimes {
+                
+                totalTime += times.toInt()!
+                
+            }
+            for intensity in exerciseIntensities {
+                
+                totalIntensity += intensity.toInt()!
+                
+            }
+            for set in exerciseSets {
+                
+                totalSets += set.toInt()!
+                
+            }
+            
+            editingWorkout["time"] = []
+            editingWorkout["time"]?.append(String(totalTime))
+            
+            editingWorkout["intensity"] = []
+            editingWorkout["intensity"]?.append(String(totalIntensity))
+            
+            editingWorkout["sets"] = []
+            editingWorkout["sets"]?.append(String(totalSets))
+            
+            workouts.append(editingWorkout)
+            
+        }
+        
         performSegueWithIdentifier("newSelectSegue", sender: sender)
         
     }
@@ -167,6 +202,14 @@ class NewWorkoutViewController: UIViewController, UITableViewDelegate {
             }
             
         }
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        exerciseNumber = indexPath.row
+        
+        performSegueWithIdentifier("newPageSegue", sender: self)
         
     }
     

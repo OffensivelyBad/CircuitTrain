@@ -18,12 +18,18 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
     
     var firstItem:Int = exerciseNumber
     
+    var new = addNew
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        contentExercises = editingWorkout["exercises"]!
+        contentTime = editingWorkout["exerciseTimes"]!
+        contentSets = editingWorkout["exerciseSets"]!
         
         if firstItem >= contentExercises.count {
             
-            self.addNew(firstItem)
+            self.addNewExercise(firstItem)
             
         }
         
@@ -31,7 +37,7 @@ class PageViewController: UIViewController, UIPageViewControllerDataSource {
         setupPageControl()
     }
     
-    func addNew(newIndex: Int) {
+    func addNewExercise(newIndex: Int) {
         
         contentExercises.append(defaultExercises[0])
         contentTime.append("0")

@@ -52,7 +52,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JuJ-j5-lJu">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JuJ-j5-lJu">
                                 <rect key="frame" x="0.0" y="72" width="375" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -155,7 +155,8 @@
                     <connections>
                         <outlet property="tableView" destination="JuJ-j5-lJu" id="7Mh-NF-0lq"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="newSelectSegue" id="fTD-9Z-VGr"/>
-                        <segue destination="tOa-nF-x5O" kind="show" identifier="newNewSegue" id="eAq-SD-kRg"/>
+                        <segue destination="Fb5-eQ-sfG" kind="show" identifier="newPageSegue" id="7V2-bW-wQG"/>
+                        <segue destination="Fb5-eQ-sfG" kind="show" identifier="newNewSegue" id="We3-Ly-GyJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q5U-r9-Xlx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -921,9 +922,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="es2-JB-rr0"/>
-        <segue reference="k6f-bb-myo"/>
         <segue reference="Nua-vH-TDH"/>
         <segue reference="7Ws-bW-jQI"/>
+        <segue reference="We3-Ly-GyJ"/>
+        <segue reference="fTD-9Z-VGr"/>
     </inferredMetricsTieBreakers>
 </document>

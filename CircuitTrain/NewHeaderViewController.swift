@@ -40,7 +40,7 @@ class NewHeaderViewController: UIViewController {
             
         } else {
             
-            editingWorkout = [:]
+            new()
             
         }
         
@@ -81,6 +81,19 @@ class NewHeaderViewController: UIViewController {
         editingWorkout["name"]?.append(workoutNameLabel.text)
         editingWorkout["warmup"]?.append(warmupLabel.text)
         editingWorkout["rest"]?.append(restLabel.text)
+        
+        println(editingWorkout)
+        
+    }
+    
+    func new() {
+        
+        workoutNumber = workouts.count
+        editingWorkout["exercises"] = [String]()
+        editingWorkout["exerciseTimes"] = [String]()
+        editingWorkout["exerciseSets"] = [String]()
+        editingWorkout["exerciseIntensities"] = [String]()
+        exerciseNumber = 0
         
     }
 

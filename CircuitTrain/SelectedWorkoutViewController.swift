@@ -44,31 +44,64 @@ class SelectedWorkoutViewController: UIViewController {
 
     @IBAction func restart(sender: AnyObject) {
         
-        
+        pause()
+        reset()
         
     }
     
     @IBAction func rewind(sender: AnyObject) {
         
+        pause()
         
+        if exerciseNumber - 1 < 0 {
+            setExercise(exerciseNumber)
+        } else {
+            setExercise(exerciseNumber - 1)
+        }
         
     }
     
     @IBAction func play(sender: AnyObject) {
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true)
-        
+        if timer.valid == true {
+            playButton.setTitle("Play", forState: UIControlState.Normal)
+            pause()
+        } else {
+            playButton.setTitle("Pause", forState: UIControlState.Normal)
+            timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true)
+        }
     }
     
     @IBAction func fastforward(sender: AnyObject) {
         
-        
+        if exerciseNumber + 1 >= exercises.count {
+            pause()
+        } else {
+            if timer.valid {
+                timer.invalidate()
+                setExercise(exerciseNumber + 1)
+                play(sender)
+            } else {
+                timer.invalidate()
+                setExercise(exerciseNumber + 1)
+            }
+        }
         
     }
     
     func reset() {
         
+        pause()
+        setExercise(0)
         
+    }
+    
+    func pause() {
+        
+        if timer.valid == true {
+            playButton.setTitle("Play", forState: UIControlState.Normal)
+            timer.invalidate()
+        }
         
     }
     
@@ -82,7 +115,7 @@ class SelectedWorkoutViewController: UIViewController {
                 setExercise(exerciseNumber + 1)
             } else {
                 println("stop")
-                timer.invalidate()
+                pause()
             }
         }
         
