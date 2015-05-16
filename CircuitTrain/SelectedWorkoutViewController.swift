@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SelectedWorkoutViewController: UIViewController {
 
+    let synth = AVSpeechSynthesizer()
+    var utterance = AVSpeechUtterance(string: "")
 
     @IBOutlet weak var minutesLabel: UILabel!
     @IBOutlet weak var secondsLabel: UILabel!
@@ -68,6 +71,7 @@ class SelectedWorkoutViewController: UIViewController {
             pause()
         } else {
             playButton.setTitle("Pause", forState: UIControlState.Normal)
+            speak(exercises[exerciseNumber])
             timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true)
         }
     }
@@ -108,6 +112,16 @@ class SelectedWorkoutViewController: UIViewController {
     func updateTime() {
         
         --currentTime
+        
+        switch currentTime {
+        case 1,2,3:
+            speak(String(currentTime))
+        case 0:
+            speak("Done")
+        default:
+            break
+        }
+        
         setTimerLabel(currentTime)
         
         if currentTime < 0 {
@@ -168,6 +182,10 @@ class SelectedWorkoutViewController: UIViewController {
         currentTime = exerciseTimes[exerciseNumber]
         setTimerLabel(currentTime)
         
+        if timer.valid {
+            speak(exercises[exerciseNumber])
+        }
+        
     }
     
     func convertTime(seconds: Int) -> (String, String) {
@@ -190,6 +208,20 @@ class SelectedWorkoutViewController: UIViewController {
             secondsLabel.text = s
         }
         
+    }
+    
+    func speak(speech: String) {
+        
+        utterance = AVSpeechUtterance(string: speech)
+        utterance.rate = 0.3
+        synth.speakUtterance(utterance)
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if timer.valid {
+            timer.invalidate()
+        }
     }
     
     override func didReceiveMemoryWarning() {

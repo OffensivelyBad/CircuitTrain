@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		29AD0E7C1B01C62200C93260 /* SelectedWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD0E7B1B01C62200C93260 /* SelectedWorkoutViewController.swift */; };
 		29E0CF621AF09EA000433D74 /* NewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0CF611AF09EA000433D74 /* NewExerciseViewController.swift */; };
+		29FE9D471B07DE0C00457178 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FE9D461B07DE0C00457178 /* AVFoundation.framework */; };
 		7105DC541AD4251A00C0AAB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC531AD4251A00C0AAB9 /* AppDelegate.swift */; };
 		7105DC561AD4251A00C0AAB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC551AD4251A00C0AAB9 /* ViewController.swift */; };
 		7105DC591AD4251A00C0AAB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7105DC571AD4251A00C0AAB9 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		29AD0E7B1B01C62200C93260 /* SelectedWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedWorkoutViewController.swift; sourceTree = "<group>"; };
 		29E0CF611AF09EA000433D74 /* NewExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewExerciseViewController.swift; sourceTree = "<group>"; };
+		29FE9D461B07DE0C00457178 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7105DC4E1AD4251A00C0AAB9 /* CircuitTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7105DC521AD4251A00C0AAB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7105DC531AD4251A00C0AAB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29FE9D471B07DE0C00457178 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +74,7 @@
 		7105DC451AD4251A00C0AAB9 = {
 			isa = PBXGroup;
 			children = (
+				29FE9D461B07DE0C00457178 /* AVFoundation.framework */,
 				7105DC501AD4251A00C0AAB9 /* CircuitTrain */,
 				7105DC661AD4251A00C0AAB9 /* CircuitTrainTests */,
 				7105DC4F1AD4251A00C0AAB9 /* Products */,
@@ -179,6 +183,7 @@
 				TargetAttributes = {
 					7105DC4D1AD4251A00C0AAB9 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = EWH85CQYYJ;
 					};
 					7105DC621AD4251A00C0AAB9 = {
 						CreatedOnToolsVersion = 6.2;
@@ -362,9 +367,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CircuitTrain/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -372,9 +380,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CircuitTrain/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
