@@ -538,31 +538,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WB6-0E-VmY">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="barTintColor" red="0.4479992023118331" green="0.7995871529027212" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="Workout List" id="b7Y-OT-xqi">
-                                        <barButtonItem key="leftBarButtonItem" title="Edit" id="N7O-2n-KbO">
-                                            <color key="tintColor" red="0.8666666666666667" green="0.91764705882352937" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="edit:" destination="BYZ-38-t0r" id="ZX7-kx-3Bg"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Add" id="Obj-O4-vRS">
-                                            <color key="tintColor" red="1" green="0.97114406588652369" blue="0.99539981517068876" alpha="0.88" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="addNewWorkout:" destination="BYZ-38-t0r" id="q1Q-jq-0H0"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Wt7-f5-Jz7">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="workoutListCell" id="56i-tb-8Ng">
@@ -641,16 +618,42 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="uDO-uF-WEh"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WB6-0E-VmY">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="kz1-c6-q3b"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.4479992023118331" green="0.7995871529027212" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Workout List" id="b7Y-OT-xqi">
+                                        <barButtonItem key="leftBarButtonItem" title="Edit" id="N7O-2n-KbO">
+                                            <color key="tintColor" red="0.8666666666666667" green="0.91764705882352937" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="edit:" destination="BYZ-38-t0r" id="ZX7-kx-3Bg"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Add" id="Obj-O4-vRS">
+                                            <color key="tintColor" red="1" green="0.97114406588652369" blue="0.99539981517068876" alpha="0.88" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="addNewWorkout:" destination="BYZ-38-t0r" id="q1Q-jq-0H0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="WB6-0E-VmY" secondAttribute="trailing" constant="-16" id="0kG-mC-Ibt"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Wt7-f5-Jz7" secondAttribute="trailing" constant="-16" id="27O-Ot-M1h"/>
-                            <constraint firstItem="Wt7-f5-Jz7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="DRH-5N-UGv"/>
-                            <constraint firstItem="WB6-0E-VmY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="RcT-K2-I9T"/>
-                            <constraint firstItem="Wt7-f5-Jz7" firstAttribute="top" secondItem="WB6-0E-VmY" secondAttribute="bottom" id="dYN-7J-7cR"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Wt7-f5-Jz7" secondAttribute="bottom" id="t5l-jd-maB"/>
-                            <constraint firstItem="WB6-0E-VmY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="yjm-nY-lzW"/>
+                            <constraint firstItem="Wt7-f5-Jz7" firstAttribute="top" secondItem="WB6-0E-VmY" secondAttribute="bottom" id="EuG-4G-nN2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wt7-f5-Jz7" secondAttribute="trailing" constant="-16" id="YT1-T7-cng"/>
+                            <constraint firstItem="WB6-0E-VmY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ag2-UT-Sdp"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Wt7-f5-Jz7" secondAttribute="bottom" id="fMD-cs-R2N"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WB6-0E-VmY" secondAttribute="trailing" constant="-16" id="tW4-ID-ec1"/>
+                            <constraint firstItem="Wt7-f5-Jz7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="uRB-SA-XyM"/>
+                            <constraint firstItem="WB6-0E-VmY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="xeC-o5-T37"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -664,7 +667,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="699.5" y="445.5"/>
+            <point key="canvasLocation" x="699.5" y="451.5"/>
         </scene>
         <!--Selected Workout View Controller-->
         <scene sceneID="XBk-je-dtF">
