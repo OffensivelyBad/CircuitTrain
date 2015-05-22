@@ -14,6 +14,7 @@ class SelectedWorkoutViewController: UIViewController {
     let synth = AVSpeechSynthesizer()
     var utterance = AVSpeechUtterance(string: "")
 
+    @IBOutlet weak var dontLikeButton: UIButton!
     @IBOutlet weak var minutesLabel: UILabel!
     @IBOutlet weak var secondsLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
@@ -59,7 +60,17 @@ class SelectedWorkoutViewController: UIViewController {
         if exerciseNumber - 1 < 0 {
             setExercise(exerciseNumber)
         } else {
-            setExercise(exerciseNumber - 1)
+            
+            if exercises[exerciseNumber - 1] == "Rest" {
+                
+                if exerciseNumber - 2 < 0 {
+                    setExercise(exerciseNumber)
+                } else {
+                    setExercise(exerciseNumber - 2)
+                }
+                
+            }
+        
         }
         
     }
@@ -81,13 +92,23 @@ class SelectedWorkoutViewController: UIViewController {
         if exerciseNumber + 1 >= exercises.count {
             pause()
         } else {
+            
             if timer.valid {
                 timer.invalidate()
                 setExercise(exerciseNumber + 1)
                 play(sender)
             } else {
                 timer.invalidate()
-                setExercise(exerciseNumber + 1)
+                if exercises[exerciseNumber + 1] == "Rest" {
+                    if exerciseNumber + 2 >= exercises.count {
+                        pause()
+                    } else {
+                        setExercise(exerciseNumber + 2)
+                    }
+                } else {
+                    setExercise(exerciseNumber + 1)
+                }
+            
             }
         }
         
@@ -135,7 +156,18 @@ class SelectedWorkoutViewController: UIViewController {
         
     }
     
+    @IBAction func dontLike(sender: AnyObject) {
+        
+        if exerciseNumber + 2 >= exercises.count {
+            pause()
+        } else {
+            setExercise(exerciseNumber + 2)
+        }
+    }
+
     func initialLoad() {
+        
+        dontLikeButton.hidden = true
         
         if let name = selectedWorkout["name"] {
             self.workoutName = name[0]
@@ -151,24 +183,96 @@ class SelectedWorkoutViewController: UIViewController {
             self.rest = workoutRest[0].toInt()!
         }
         if let stringExercises = selectedWorkout["exercises"] {
-            for var i = 0; i < stringExercises.count; ++i {
-                let exercise = stringExercises[i]
-                self.exercises.append(exercise)
+            if self.warmup > 0 {
+                
+                self.exercises.append("Warmup")
+                
+            }
+            if self.rest > 0 {
+                
+                for var i = 0; i < stringExercises.count; ++i {
+                    
+                    let exercise = stringExercises[i]
+                    self.exercises.append(exercise)
+                    
+                    if i < stringExercises.count - 1 {
+                        self.exercises.append("Rest")
+                    }
+                    
+                }
+                
+            } else {
+                
+                for var i = 0; i < stringExercises.count; ++i {
+                    let exercise = stringExercises[i]
+                    self.exercises.append(exercise)
+                    
+                }
+                
             }
             
         }
         if let stringExerciseTimes = selectedWorkout["exerciseTimes"] {
-            for var i = 0; i < stringExerciseTimes.count; ++i {
-                let time = stringExerciseTimes[i]
-                self.exerciseTimes.append(time.toInt()!)
+            
+            if self.warmup > 0 {
+                
+                self.exerciseTimes.append(self.warmup)
+                
+            }
+            if self.rest > 0 {
+                
+                for var i = 0; i < stringExerciseTimes.count; ++i {
+                    
+                    let time = stringExerciseTimes[i]
+                    self.exerciseTimes.append(time.toInt()!)
+                    
+                    if i < stringExerciseTimes.count - 1 {
+                        self.exerciseTimes.append(self.rest)
+                    }
+                    
+                }
+                
+            } else {
+                
+                for var i = 0; i < stringExerciseTimes.count; ++i {
+                    let time = stringExerciseTimes[i]
+                    self.exerciseTimes.append(time.toInt()!)
+                    
+                }
+                
             }
             
         }
         if let stringExerciseSets = selectedWorkout["exerciseSets"] {
-            for var i = 0; i < stringExerciseSets.count; ++i {
-                let set = stringExerciseSets[i]
-                self.exerciseSets.append(set.toInt()!)
+            
+            if self.warmup > 0 {
+                
+                self.exerciseSets.append(1)
+                
             }
+            if self.rest > 0 {
+                
+                for var i = 0; i < stringExerciseSets.count; ++i {
+                    
+                    let set = stringExerciseSets[i]
+                    self.exerciseSets.append(set.toInt()!)
+                    
+                    if i < stringExerciseSets.count - 1 {
+                        self.exerciseSets.append(self.rest)
+                    }
+                    
+                }
+                
+            } else {
+                
+                for var i = 0; i < stringExerciseSets.count; ++i {
+                    let set = stringExerciseSets[i]
+                    self.exerciseSets.append(set.toInt()!)
+                    
+                }
+                
+            }
+            
         }
         
         setExercise(exerciseNumber)
@@ -178,7 +282,19 @@ class SelectedWorkoutViewController: UIViewController {
     func setExercise(exNum: Int) {
         
         exerciseNumber = exNum
-        exerciseLabel.text = exercises[exerciseNumber]
+        
+        if exercises[exerciseNumber] == "Rest" || exercises[exerciseNumber] == "Warmup" {
+            
+            dontLikeButton.hidden = false
+            exerciseLabel.text = "Next: \(exercises[exerciseNumber + 1])"
+            
+        } else {
+        
+            dontLikeButton.hidden = true
+            exerciseLabel.text = exercises[exerciseNumber]
+            
+        }
+        
         currentTime = exerciseTimes[exerciseNumber]
         setTimerLabel(currentTime)
         

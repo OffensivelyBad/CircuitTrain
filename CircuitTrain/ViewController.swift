@@ -156,15 +156,23 @@ class ViewController: UIViewController, UITableViewDelegate {
                     
                     workouts.append(["name":["Workout 1"], "time":["80"], "sets":["3"], "intensity":["83"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
                     
-                    workouts.append(["name":["Workout 2"], "time":["770"], "sets":["8"], "intensity":["56"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["60","60","60","60","60","60","60","350"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
+                    workouts.append(["name":["Workout 2"], "time":["40"], "sets":["8"], "intensity":["56"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["5","5","5","5","5","5","5","5"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
                     
                 } else {
                     
-                    let jsonWorkout = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray
+                    if let jsonWorkout = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
                     
-                    for workout in jsonWorkout {
+                        for workout in jsonWorkout {
+                            
+                            workouts.append(workout as! Dictionary<String, [String]>)
+                            
+                        }
+                    
+                    } else {
                         
-                        workouts.append(workout as! Dictionary<String, [String]>)
+                        workouts.append(["name":["Workout 1"], "time":["80"], "sets":["3"], "intensity":["83"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
+                        
+                        workouts.append(["name":["Workout 2"], "time":["40"], "sets":["8"], "intensity":["56"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["5","5","5","5","5","5","5","5"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
                         
                     }
                     
@@ -181,7 +189,11 @@ class ViewController: UIViewController, UITableViewDelegate {
         let requestExercises = NSURLRequest(URL: urlExercises!)
         NSURLConnection.sendAsynchronousRequest(requestExercises, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
             
-            if let httpResponse = response as? NSHTTPURLResponse {
+            if error != nil {
+                
+                defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
+                
+            } else if let httpResponse = response as? NSHTTPURLResponse {
                 
                 if httpResponse.statusCode == 404 || error != nil {
                     
@@ -191,18 +203,24 @@ class ViewController: UIViewController, UITableViewDelegate {
                     
                 } else {
                     
-                    let jsonExercises = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray
+                    if let jsonExercises = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
                     
-                    for exercise in jsonExercises {
+                        for exercise in jsonExercises {
+                            
+                            defaultExercises.append(exercise as! String)
+                            
+                        }
                         
-                        defaultExercises.append(exercise as! String)
+                    } else {
                         
+                        defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
                     }
                     
+                    
                 }
-                
-            }
             
+            }
+        
         })
         
         firstLoad = false

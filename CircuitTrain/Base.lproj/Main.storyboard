@@ -791,11 +791,21 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J74-8y-X1l">
+                                <rect key="frame" x="134" y="229" width="107" height="30"/>
+                                <state key="normal" title="Don't Like">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dontLike:" destination="qjS-tA-Gv1" eventType="touchUpInside" id="XTq-g0-v9B"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="Mgf-x6-bvh" secondAttribute="centerX" id="1in-6R-hOu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tET-06-ave" secondAttribute="trailing" constant="-16" id="36u-xA-dFn"/>
+                            <constraint firstAttribute="centerX" secondItem="J74-8y-X1l" secondAttribute="centerX" id="5Yc-xt-1jW"/>
                             <constraint firstItem="Mgf-x6-bvh" firstAttribute="leading" secondItem="GhS-UH-DLk" secondAttribute="trailing" constant="8" id="7Pe-Ml-hkh"/>
                             <constraint firstItem="tET-06-ave" firstAttribute="top" secondItem="skx-ts-iGB" secondAttribute="bottom" id="Ewa-Si-rmF"/>
                             <constraint firstItem="JJy-KB-Wag" firstAttribute="leading" secondItem="AQe-iW-4lW" secondAttribute="trailing" constant="8" id="Fzp-Fr-Gys"/>
@@ -809,12 +819,14 @@
                             <constraint firstItem="RIX-W6-AQH" firstAttribute="top" secondItem="tET-06-ave" secondAttribute="bottom" constant="33" id="jut-tZ-mOL"/>
                             <constraint firstAttribute="centerX" secondItem="AQe-iW-4lW" secondAttribute="centerX" id="kTW-47-OQE"/>
                             <constraint firstAttribute="centerX" secondItem="yVG-al-Kzv" secondAttribute="centerX" id="kwo-oS-gbn"/>
+                            <constraint firstItem="J74-8y-X1l" firstAttribute="top" secondItem="tET-06-ave" secondAttribute="bottom" constant="165" id="vb8-NG-JOo"/>
                             <constraint firstItem="GhS-UH-DLk" firstAttribute="top" secondItem="tET-06-ave" secondAttribute="bottom" constant="33" id="yHS-c4-KyN"/>
                             <constraint firstItem="mcL-tn-9es" firstAttribute="top" secondItem="yVG-al-Kzv" secondAttribute="bottom" constant="17" id="yrB-lc-BVe"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="dontLikeButton" destination="J74-8y-X1l" id="6j4-E4-oZG"/>
                         <outlet property="exerciseLabel" destination="yVG-al-Kzv" id="OZ5-8C-je3"/>
                         <outlet property="minutesLabel" destination="GhS-UH-DLk" id="EAA-ce-T37"/>
                         <outlet property="playButton" destination="AQe-iW-4lW" id="pQH-Vt-46g"/>

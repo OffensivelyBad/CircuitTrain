@@ -319,26 +319,47 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
     
     func selectPicker() {
         
-        if activePicker == 0 {
+        self.exercisePicker.hidden = false
+        self.timePicker.hidden = false
+        self.setsPicker.hidden = false
         
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
+        if activePicker == 0 {
+            
+            UIView.animateWithDuration(0.5 , animations: { () -> Void in
                 
                 self.exercisePicker.center = CGPointMake(self.center, self.exercisePicker.center.y)
                 self.timePicker.center = CGPointMake(self.center + 400, self.timePicker.center.y)
                 self.setsPicker.center = CGPointMake(self.center + 800, self.setsPicker.center.y)
                 
+            }, completion: { (done) -> Void in
+                
+                if done == true {
+                
+                    self.timePicker.hidden = true
+                    self.setsPicker.hidden = true
+                    
+                }
+                
             })
             
         } else if activePicker == 1 {
             
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
+            UIView.animateWithDuration(0.5 , animations: { () -> Void in
                 
                 self.exercisePicker.center = CGPointMake(self.center - 400, self.exercisePicker.center.y)
                 self.timePicker.center = CGPointMake(self.center, self.timePicker.center.y)
                 self.setsPicker.center = CGPointMake(self.center + 400, self.setsPicker.center.y)
                 
-            })
+                }, completion: { (done) -> Void in
             
+                    if done == true {
+                            
+                        self.exercisePicker.hidden = true
+                        self.setsPicker.hidden = true
+                    }
+        
+            })
+    
         } else if activePicker == 2 {
             
             UIView.animateWithDuration(0.5, animations: { () -> Void in
@@ -347,6 +368,14 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
                 self.timePicker.center = CGPointMake(self.center - 400, self.timePicker.center.y)
                 self.setsPicker.center = CGPointMake(self.center, self.setsPicker.center.y)
                 
+                }, completion: { (done) -> Void in
+            
+                    if done == true {
+                        self.exercisePicker.hidden = true
+                        self.timePicker.hidden = true
+                            
+                    }
+        
             })
             
         }
