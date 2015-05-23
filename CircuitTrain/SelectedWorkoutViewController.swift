@@ -11,8 +11,11 @@ import AVFoundation
 
 class SelectedWorkoutViewController: UIViewController {
 
+    var error: NSError?
+    var session: AVAudioSession = AVAudioSession.sharedInstance()
     let synth = AVSpeechSynthesizer()
     var utterance = AVSpeechUtterance(string: "")
+    var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
     @IBOutlet weak var dontLikeButton: UIButton!
     @IBOutlet weak var minutesLabel: UILabel!
@@ -34,7 +37,10 @@ class SelectedWorkoutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("reinstateBackgroundTask"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        session.setCategory(AVAudioSessionCategoryPlayback, error: &error)
+        session.setActive(true, error: &error)
         selectedWorkout = workouts[workoutNumber]
         initialLoad()
         
@@ -80,10 +86,12 @@ class SelectedWorkoutViewController: UIViewController {
         if timer.valid == true {
             playButton.setTitle("Play", forState: UIControlState.Normal)
             pause()
+            endBackgroundTask()
         } else {
             playButton.setTitle("Pause", forState: UIControlState.Normal)
             speak(exercises[exerciseNumber])
             timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true)
+            registerBackgroundTask()
         }
     }
     
@@ -95,10 +103,12 @@ class SelectedWorkoutViewController: UIViewController {
             
             if timer.valid {
                 timer.invalidate()
+                endBackgroundTask()
                 setExercise(exerciseNumber + 1)
                 play(sender)
             } else {
                 timer.invalidate()
+                endBackgroundTask()
                 if exercises[exerciseNumber + 1] == "Rest" {
                     if exerciseNumber + 2 >= exercises.count {
                         pause()
@@ -126,6 +136,7 @@ class SelectedWorkoutViewController: UIViewController {
         if timer.valid == true {
             playButton.setTitle("Play", forState: UIControlState.Normal)
             timer.invalidate()
+            endBackgroundTask()
         }
         
     }
@@ -153,6 +164,8 @@ class SelectedWorkoutViewController: UIViewController {
                 pause()
             }
         }
+        
+        println(currentTime)
         
     }
     
@@ -337,6 +350,31 @@ class SelectedWorkoutViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if timer.valid {
             timer.invalidate()
+            endBackgroundTask()
+        }
+    }
+    
+    func registerBackgroundTask() {
+        backgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler {
+            [unowned self] in
+            self.endBackgroundTask()
+        }
+        assert(backgroundTask != UIBackgroundTaskInvalid)
+    }
+    
+    func endBackgroundTask() {
+        println("background task has ended")
+        UIApplication.sharedApplication().endBackgroundTask(backgroundTask)
+        backgroundTask = UIBackgroundTaskInvalid
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func reinstateBackgroundTask() {
+        if timer.valid && backgroundTask == UIBackgroundTaskInvalid {
+            registerBackgroundTask()
         }
     }
     

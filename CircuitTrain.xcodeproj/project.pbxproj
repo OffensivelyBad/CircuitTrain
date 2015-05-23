@@ -184,6 +184,11 @@
 					7105DC4D1AD4251A00C0AAB9 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = EWH85CQYYJ;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					7105DC621AD4251A00C0AAB9 = {
 						CreatedOnToolsVersion = 6.2;
