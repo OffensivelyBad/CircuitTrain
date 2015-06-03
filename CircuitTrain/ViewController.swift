@@ -18,6 +18,7 @@ var firstLoad:Bool = true
 var addNew:Bool = true
 var defaultExercises = [String]()
 var previousView:String = ""
+var user = "Shawn"
 
 class ViewController: UIViewController, UITableViewDelegate {
 
@@ -185,7 +186,7 @@ class ViewController: UIViewController, UITableViewDelegate {
 //            
 //        })
         
-        let urlDBWorkouts = "http://104.236.180.121:3000/defaultWorkouts"
+        let urlDBWorkouts = "http://104.236.180.121:3000/defaultWorkouts/default"
         let urlDBWorkout = NSURL(string: urlDBWorkouts)
         let requestDBWorkouts = NSMutableURLRequest(URL: urlDBWorkout!)
         requestDBWorkouts.HTTPMethod = "GET"
@@ -212,11 +213,8 @@ class ViewController: UIViewController, UITableViewDelegate {
                             
                             var tempWorkout = [String: [String]]()
                             var id: [String] = []
-                            var created: [String] = []
                             id.append(workout["_id"] as! String)
-                            created.append(workout["created_at"] as! String)
                             tempWorkout["_id"] = id
-                            tempWorkout["created_at"] = created
                             tempWorkout["exerciseIntensities"] = workout["exerciseIntensities"] as? [String]
                             tempWorkout["exerciseSets"] = workout["exerciseSets"] as? [String]
                             tempWorkout["exerciseTimes"] = workout["exerciseTimes"] as? [String]
@@ -227,6 +225,95 @@ class ViewController: UIViewController, UITableViewDelegate {
                             tempWorkout["sets"] = workout["sets"] as? [String]
                             tempWorkout["time"] = workout["time"] as? [String]
                             tempWorkout["warmup"] = workout["warmup"] as? [String]
+                            
+                            if let updated: AnyObject? = workout["updated_at"] {
+                                var update: [String] = []
+                                if updated != nil {
+                                    update.append(updated as! String)
+                                    tempWorkout["updated_at"] = update
+                                }
+                            }
+                            
+                            if let created: AnyObject? = workout["created_at"] {
+                                var create: [String] = []
+                                if created != nil {
+                                    create.append(created as! String)
+                                    tempWorkout["created_at"] = create
+                                }
+                            }
+                            
+                            workouts.append(tempWorkout)
+                            
+                        }
+                        
+                    } else {
+                        
+                        self.setDefaultWorkouts()
+                    }
+                    
+                }
+                
+            }
+            
+            self.tableView.reloadData()
+            
+        })
+        
+        let urlUserWorkouts = "http://104.236.180.121:3000/defaultWorkouts/" + user
+        let urlUserWorkout = NSURL(string: urlUserWorkouts)
+        let requestUserWorkouts = NSMutableURLRequest(URL: urlUserWorkout!)
+        requestUserWorkouts.HTTPMethod = "GET"
+        requestUserWorkouts.addValue("application/json", forHTTPHeaderField: "Accept")
+        NSURLConnection.sendAsynchronousRequest(requestUserWorkouts, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+            
+            if error != nil  {
+                
+                self.setDefaultWorkouts()
+                
+            } else if let httpResponse = response as? NSHTTPURLResponse {
+                
+                if httpResponse.statusCode == 404 || error != nil {
+                    
+                    println("\(httpResponse) \(error)")
+                    
+                    self.setDefaultWorkouts()
+                    
+                } else {
+                    
+                    if let dbWorkoutArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+                        
+                        for workout in dbWorkoutArray {
+                            
+                            var tempWorkout = [String: [String]]()
+                            var id: [String] = []
+                            id.append(workout["_id"] as! String)
+                            tempWorkout["_id"] = id
+                            tempWorkout["exerciseIntensities"] = workout["exerciseIntensities"] as? [String]
+                            tempWorkout["exerciseSets"] = workout["exerciseSets"] as? [String]
+                            tempWorkout["exerciseTimes"] = workout["exerciseTimes"] as? [String]
+                            tempWorkout["exercises"] = workout["exercises"] as? [String]
+                            tempWorkout["intensity"] = workout["intensity"] as? [String]
+                            tempWorkout["name"] = workout["name"] as? [String]
+                            tempWorkout["rest"] = workout["rest"] as? [String]
+                            tempWorkout["sets"] = workout["sets"] as? [String]
+                            tempWorkout["time"] = workout["time"] as? [String]
+                            tempWorkout["warmup"] = workout["warmup"] as? [String]
+                            
+                            if let updated: AnyObject? = workout["updated_at"] {
+                                var update: [String] = []
+                                if updated != nil {
+                                    update.append(updated as! String)
+                                    tempWorkout["updated_at"] = update
+                                }
+                            }
+                            
+                            if let created: AnyObject? = workout["created_at"] {
+                                var create: [String] = []
+                                if created != nil {
+                                    create.append(created as! String)
+                                    tempWorkout["created_at"] = create
+                                }
+                            }
                             
                             workouts.append(tempWorkout)
                             
@@ -245,7 +332,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             
         })
     
-        let urlDBExercises = "http://104.236.180.121:3000/defaultExercises/556ced5c9564505b5143eae4"
+        let urlDBExercises = "http://104.236.180.121:3000/defaultExercises/default"
         let urlDB = NSURL(string: urlDBExercises)
         let requestDBExercises = NSMutableURLRequest(URL: urlDB!)
         requestDBExercises.HTTPMethod = "GET"
@@ -266,16 +353,18 @@ class ViewController: UIViewController, UITableViewDelegate {
                     
                 } else {
                     
-                    if let dbExerciseArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSMutableDictionary {
+                    if let dbExerciseArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
                         
-                        if let dbExercises = dbExerciseArray["exercises"] as? [String]{
-                            for exercise in dbExercises {
-                                defaultExercises.append(exercise)
+                        for exerciseArray in dbExerciseArray {
+                            if let dbExercises = exerciseArray["exercises"] as? [String]{
+                                for exercise in dbExercises {
+                                    defaultExercises.append(exercise)
+                                }
                             }
                         }
                         
                     } else {
-                        
+    
                         self.setDefaultExercises()
                     }
                     
