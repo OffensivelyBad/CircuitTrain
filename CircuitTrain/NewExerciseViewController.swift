@@ -81,7 +81,7 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
         
     }
     
-    func save() {
+    func save() -> Bool {
         
         contentExercises[exerciseNumber] = exerciseLabel.text
         contentSets[exerciseNumber] = setsLabel.text
@@ -97,25 +97,45 @@ class NewExerciseViewController: UIViewController, UIPickerViewDelegate {
         var secInt = time.substringWithRange(secRange).toInt()
         var totalTime = minInt + secInt!
         
-        contentTime[exerciseNumber] = String(totalTime)
+        var saved = false
         
-        editingWorkout["exercises"] = contentExercises
-        editingWorkout["exerciseTimes"] = contentTime
-        editingWorkout["exerciseSets"] = contentSets
+        if totalTime <= 0 {
+        
+            let alert = UIAlertController(title: "Set Time", message: "Enter the exercise time", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay!", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+                
+        } else {
+        
+            saved = true
+            
+            contentTime[exerciseNumber] = String(totalTime)
+            
+            editingWorkout["exercises"] = contentExercises
+            editingWorkout["exerciseTimes"] = contentTime
+            editingWorkout["exerciseSets"] = contentSets
+            
+        }
+        
+        return saved
         
     }
     
     @IBAction func add(sender: AnyObject) {
         
-        save()
+        var saved: Bool = save()
         
-        if let totalExercises = editingWorkout["exercises"] {
+        if saved {
+        
+            if let totalExercises = editingWorkout["exercises"] {
+                
+                exerciseNumber = totalExercises.count
+                
+            }
             
-            exerciseNumber = totalExercises.count
-            
+            performSegueWithIdentifier("addPageSegue", sender: sender)
+        
         }
-        
-        performSegueWithIdentifier("addPageSegue", sender: sender)
         
     }
     

@@ -166,9 +166,9 @@ class NewWorkoutViewController: UIViewController, UITableViewDelegate {
             thisExerciseSetArray.removeAtIndex(fromIndexPath.row)
             thisExerciseSetArray.insert(movedExerciseSet, atIndex: toIndexPath.row)
             
-            let movedExerciseIntensity = thisExerciseIntensityArray[fromIndexPath.row]
-            thisExerciseIntensityArray.removeAtIndex(fromIndexPath.row)
-            thisExerciseIntensityArray.insert(movedExerciseIntensity, atIndex: toIndexPath.row)
+//            let movedExerciseIntensity = thisExerciseIntensityArray[fromIndexPath.row]
+//            thisExerciseIntensityArray.removeAtIndex(fromIndexPath.row)
+//            thisExerciseIntensityArray.insert(movedExerciseIntensity, atIndex: toIndexPath.row)
             
             editingWorkout["exercises"] = thisExerciseArray
             editingWorkout["exerciseTimes"] = thisExerciseTimeArray

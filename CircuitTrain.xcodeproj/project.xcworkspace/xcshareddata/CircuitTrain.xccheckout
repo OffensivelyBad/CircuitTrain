@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>53ACF1DB-98B3-4886-B931-4EAF87E63A1C</string>
 	<key>IDESourceControlProjectName</key>
-	<string>CircuitTrain</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>DF30048BE7FED95BA80E72C758AABF3DBACB7042</key>
 		<string>https://github.com/OffensivelyBad/CircuitTrain.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CircuitTrain.xcodeproj</string>
+	<string>CircuitTrain.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>DF30048BE7FED95BA80E72C758AABF3DBACB7042</key>

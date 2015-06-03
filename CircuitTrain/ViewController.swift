@@ -143,55 +143,118 @@ class ViewController: UIViewController, UITableViewDelegate {
         if workouts.count == 1 { workouts.removeAtIndex(0) }
         
         //get workouts from server
-        let urlPath = "http://104.236.180.121:8080/iOS/CircuitTrain/workouts/default.json"
-        let url = NSURL(string: urlPath)
-        let request = NSURLRequest(URL: url!)
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+//        let urlPath = "http://104.236.180.121:8080/iOS/CircuitTrain/workouts/default.json"
+//        let url = NSURL(string: urlPath)
+//        let request = NSMutableURLRequest(URL: url!)
+//        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+//            
+//            if let httpResponse = response as? NSHTTPURLResponse {
+//
+//                if httpResponse.statusCode == 404 || error != nil {
+//                    
+//                    println("\(httpResponse) \(error)")
+//                    
+//                    self.setDefaultWorkouts()
+//                    
+//                } else {
+//                    
+//                    if let jsonWorkout = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+//                    
+//                        for workout in jsonWorkout {
+//                            
+//                            workouts.append(workout as! Dictionary<String, [String]>)
+//                            
+//                        }
+//                    
+//                    } else {
+//                        
+//                        self.setDefaultWorkouts()
+//                        
+//                    }
+//                    
+//                }
+//                
+//            } else {
+//                
+//                println("could not connect to server")
+//                
+//                self.setDefaultWorkouts()
+//            }
+//            
+//            self.tableView.reloadData()
+//            
+//        })
+        
+        let urlDBWorkouts = "http://104.236.180.121:3000/defaultWorkouts"
+        let urlDBWorkout = NSURL(string: urlDBWorkouts)
+        let requestDBWorkouts = NSMutableURLRequest(URL: urlDBWorkout!)
+        requestDBWorkouts.HTTPMethod = "GET"
+        requestDBWorkouts.addValue("application/json", forHTTPHeaderField: "Accept")
+        NSURLConnection.sendAsynchronousRequest(requestDBWorkouts, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
             
-            if let httpResponse = response as? NSHTTPURLResponse {
+            if error != nil  {
                 
+                self.setDefaultWorkouts()
+                
+            } else if let httpResponse = response as? NSHTTPURLResponse {
+
                 if httpResponse.statusCode == 404 || error != nil {
                     
                     println("\(httpResponse) \(error)")
                     
-                    workouts.append(["name":["Workout 1"], "time":["80"], "sets":["3"], "intensity":["83"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
-                    
-                    workouts.append(["name":["Workout 2"], "time":["40"], "sets":["8"], "intensity":["56"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["5","5","5","5","5","5","5","5"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
+                    self.setDefaultWorkouts()
                     
                 } else {
                     
-                    if let jsonWorkout = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
-                    
-                        for workout in jsonWorkout {
+                    if let dbWorkoutArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+
+                        for workout in dbWorkoutArray {
                             
-                            workouts.append(workout as! Dictionary<String, [String]>)
+                            var tempWorkout = [String: [String]]()
+                            var id: [String] = []
+                            var created: [String] = []
+                            id.append(workout["_id"] as! String)
+                            created.append(workout["created_at"] as! String)
+                            tempWorkout["_id"] = id
+                            tempWorkout["created_at"] = created
+                            tempWorkout["exerciseIntensities"] = workout["exerciseIntensities"] as? [String]
+                            tempWorkout["exerciseSets"] = workout["exerciseSets"] as? [String]
+                            tempWorkout["exerciseTimes"] = workout["exerciseTimes"] as? [String]
+                            tempWorkout["exercises"] = workout["exercises"] as? [String]
+                            tempWorkout["intensity"] = workout["intensity"] as? [String]
+                            tempWorkout["name"] = workout["name"] as? [String]
+                            tempWorkout["rest"] = workout["rest"] as? [String]
+                            tempWorkout["sets"] = workout["sets"] as? [String]
+                            tempWorkout["time"] = workout["time"] as? [String]
+                            tempWorkout["warmup"] = workout["warmup"] as? [String]
+                            
+                            workouts.append(tempWorkout)
                             
                         }
-                    
+                        
                     } else {
                         
-                        workouts.append(["name":["Workout 1"], "time":["80"], "sets":["3"], "intensity":["83"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
-                        
-                        workouts.append(["name":["Workout 2"], "time":["40"], "sets":["8"], "intensity":["56"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["5","5","5","5","5","5","5","5"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
-                        
+                        self.setDefaultWorkouts()
                     }
                     
                 }
                 
-                self.tableView.reloadData()
-                
             }
             
+            self.tableView.reloadData()
+            
         })
-        
-        let urlPathExercises = "http://104.236.180.121:8080/iOS/CircuitTrain/exercises/default.json"
-        let urlExercises = NSURL(string: urlPathExercises)
-        let requestExercises = NSURLRequest(URL: urlExercises!)
-        NSURLConnection.sendAsynchronousRequest(requestExercises, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+    
+        let urlDBExercises = "http://104.236.180.121:3000/defaultExercises/556ced5c9564505b5143eae4"
+        let urlDB = NSURL(string: urlDBExercises)
+        let requestDBExercises = NSMutableURLRequest(URL: urlDB!)
+        requestDBExercises.HTTPMethod = "GET"
+        requestDBExercises.addValue("application/json", forHTTPHeaderField: "Accept")
+        NSURLConnection.sendAsynchronousRequest(requestDBExercises, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
             
             if error != nil {
                 
-                defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
+                self.setDefaultExercises()
                 
             } else if let httpResponse = response as? NSHTTPURLResponse {
                 
@@ -199,31 +262,45 @@ class ViewController: UIViewController, UITableViewDelegate {
                     
                     println("\(httpResponse) \(error)")
                     
-                    defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
+                    self.setDefaultExercises()
                     
                 } else {
                     
-                    if let jsonExercises = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
-                    
-                        for exercise in jsonExercises {
-                            
-                            defaultExercises.append(exercise as! String)
-                            
+                    if let dbExerciseArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSMutableDictionary {
+                        
+                        if let dbExercises = dbExerciseArray["exercises"] as? [String]{
+                            for exercise in dbExercises {
+                                defaultExercises.append(exercise)
+                            }
                         }
                         
                     } else {
                         
-                        defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
+                        self.setDefaultExercises()
                     }
                     
                     
                 }
-            
+                
             }
-        
+            
         })
         
         firstLoad = false
+        
+    }
+    
+    func setDefaultWorkouts() {
+        
+        workouts.append(["name":["Workout 1"], "time":["80"], "sets":["3"], "intensity":["83"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks"], "exerciseTimes":["30","30","20"], "exerciseIntensities":["100","90","80"], "exerciseSets":["1","1","1"]])
+        
+        workouts.append(["name":["Workout 2"], "time":["40"], "sets":["8"], "intensity":["56"], "warmup":["10"], "rest":["5"], "exercises":["pushups","squats","jumping jacks","turkish getup","pullups","high knees","curls","crawl outs"], "exerciseTimes":["5","5","5","5","5","5","5","5"], "exerciseIntensities":["60","50","60","55","65","70","50","60"], "exerciseSets":["1","1","1","1","1","1","1","1"]])
+        
+    }
+    
+    func setDefaultExercises() {
+        
+        defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
         
     }
 
