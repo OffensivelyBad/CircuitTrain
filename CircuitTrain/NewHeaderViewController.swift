@@ -24,6 +24,7 @@ class NewHeaderViewController: UIViewController {
         if !addNew {
         
             editingWorkout = workouts[workoutNumber]
+            println(editingWorkout)
             
             if let name = editingWorkout["name"], warmupTime = editingWorkout["warmup"], restTime = editingWorkout["rest"] {
                 

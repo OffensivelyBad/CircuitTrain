@@ -259,7 +259,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             
         })
         
-        let urlUserWorkouts = "http://104.236.180.121:3000/defaultWorkouts/" + user
+        let urlUserWorkouts = "http://104.236.180.121:3000/userWorkouts/" + user
         let urlUserWorkout = NSURL(string: urlUserWorkouts)
         let requestUserWorkouts = NSMutableURLRequest(URL: urlUserWorkout!)
         requestUserWorkouts.HTTPMethod = "GET"
