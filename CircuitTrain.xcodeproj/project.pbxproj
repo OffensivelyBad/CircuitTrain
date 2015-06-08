@@ -12,6 +12,7 @@
 		2917471E1B13767300899E51 /* WorkoutPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917471D1B13767300899E51 /* WorkoutPreviewViewController.swift */; };
 		29AD0E7C1B01C62200C93260 /* SelectedWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD0E7B1B01C62200C93260 /* SelectedWorkoutViewController.swift */; };
 		29E0CF621AF09EA000433D74 /* NewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0CF611AF09EA000433D74 /* NewExerciseViewController.swift */; };
+		29F063641B211C0F0053B0E4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29F063621B211C0F0053B0E4 /* Model.xcdatamodeld */; };
 		29FE9D471B07DE0C00457178 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FE9D461B07DE0C00457178 /* AVFoundation.framework */; };
 		7105DC541AD4251A00C0AAB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC531AD4251A00C0AAB9 /* AppDelegate.swift */; };
 		7105DC561AD4251A00C0AAB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105DC551AD4251A00C0AAB9 /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 		2917471D1B13767300899E51 /* WorkoutPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutPreviewViewController.swift; sourceTree = "<group>"; };
 		29AD0E7B1B01C62200C93260 /* SelectedWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedWorkoutViewController.swift; sourceTree = "<group>"; };
 		29E0CF611AF09EA000433D74 /* NewExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewExerciseViewController.swift; sourceTree = "<group>"; };
+		29F063631B211C0F0053B0E4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		29FE9D461B07DE0C00457178 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7105DC4E1AD4251A00C0AAB9 /* CircuitTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7105DC521AD4251A00C0AAB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				2917471D1B13767300899E51 /* WorkoutPreviewViewController.swift */,
 				7105DC5A1AD4251A00C0AAB9 /* Images.xcassets */,
 				7105DC5C1AD4251A00C0AAB9 /* LaunchScreen.xib */,
+				29F063621B211C0F0053B0E4 /* Model.xcdatamodeld */,
 				7105DC511AD4251A00C0AAB9 /* Supporting Files */,
 			);
 			path = CircuitTrain;
@@ -260,6 +263,7 @@
 				7105DC541AD4251A00C0AAB9 /* AppDelegate.swift in Sources */,
 				29E0CF621AF09EA000433D74 /* NewExerciseViewController.swift in Sources */,
 				2917471A1B13706500899E51 /* EditExerciseViewController.swift in Sources */,
+				29F063641B211C0F0053B0E4 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +475,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		29F063621B211C0F0053B0E4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				29F063631B211C0F0053B0E4 /* Model.xcdatamodel */,
+			);
+			currentVersion = 29F063631B211C0F0053B0E4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7105DC461AD4251A00C0AAB9 /* Project object */;
 }

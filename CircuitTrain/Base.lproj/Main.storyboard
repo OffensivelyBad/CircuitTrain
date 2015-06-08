@@ -364,26 +364,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c1K-b8-rMQ">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Gw3-kl-27Y"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="NewExercise" id="TFb-Sc-4h8">
-                                        <barButtonItem key="leftBarButtonItem" title="Done" id="MsD-90-rxd">
-                                            <connections>
-                                                <action selector="done:" destination="tOa-nF-x5O" id="4NP-Vp-2PL"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" tag="501" systemItem="add" id="TTZ-TA-9JU">
-                                            <connections>
-                                                <action selector="add:" destination="tOa-nF-x5O" id="0Nn-Qv-CVQ"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3l4-04-1kW">
                                 <rect key="frame" x="136" y="99" width="102" height="21"/>
                                 <constraints>
@@ -483,6 +463,26 @@
                                     <outlet property="delegate" destination="tOa-nF-x5O" id="bFk-Dn-DdN"/>
                                 </connections>
                             </pickerView>
+                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1K-b8-rMQ">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Gw3-kl-27Y"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="NewExercise" id="TFb-Sc-4h8">
+                                        <barButtonItem key="leftBarButtonItem" title="Done" id="MsD-90-rxd">
+                                            <connections>
+                                                <action selector="done:" destination="tOa-nF-x5O" id="4NP-Vp-2PL"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" tag="501" systemItem="add" id="TTZ-TA-9JU">
+                                            <connections>
+                                                <action selector="add:" destination="tOa-nF-x5O" id="0Nn-Qv-CVQ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1290,9 +1290,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="av6-CT-aZF"/>
+        <segue reference="k6f-bb-myo"/>
         <segue reference="Nua-vH-TDH"/>
         <segue reference="7Ws-bW-jQI"/>
-        <segue reference="We3-Ly-GyJ"/>
+        <segue reference="av6-CT-aZF"/>
     </inferredMetricsTieBreakers>
 </document>

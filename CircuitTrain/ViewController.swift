@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 var workouts = [Dictionary<String,[String]>()]
 var editingWorkout = Dictionary<String, [String]>()
@@ -19,6 +20,7 @@ var addNew:Bool = true
 var defaultExercises = [String]()
 var previousView:String = ""
 var user = "Shawn"
+var storedWorkouts = [NSManagedObject]()
 
 class ViewController: UIViewController, UITableViewDelegate {
 
@@ -376,6 +378,7 @@ class ViewController: UIViewController, UITableViewDelegate {
         })
         
         firstLoad = false
+//        persist()
         
     }
     
@@ -390,6 +393,48 @@ class ViewController: UIViewController, UITableViewDelegate {
     func setDefaultExercises() {
         
         defaultExercises = ["pushups","situps","pullups","benchpress","squats"]
+        
+    }
+    
+    func persist() {
+        
+        var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(workouts)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let entity = NSEntityDescription.entityForName("Workout", inManagedObjectContext: managedContext)
+        let workoutSet = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        workoutSet.setValue(data, forKey: "workouts")
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+        
+    }
+    
+    func fetch() {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let fetchRequest = NSFetchRequest(entityName: "Workout")
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        var error = NSError?()
+        let fetchedResults = managedContext.executeFetchRequest(fetchRequest, error: &error)
+        
+        if let results = fetchedResults {
+            for result: AnyObject in results {
+                var data: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithData(result as! NSData)
+                println(data)
+            }
+        }
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //fetch()
         
     }
 
