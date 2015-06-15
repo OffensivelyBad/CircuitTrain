@@ -145,11 +145,17 @@ class SelectedWorkoutViewController: UIViewController {
         
         --currentTime
         
+        var nextExerciseName = "Done"
+        
+        if exerciseNumber + 1 < exercises.count {
+            nextExerciseName = exercises[exerciseNumber + 1]
+        }
+        
         switch currentTime {
         case 1,2,3:
             speak(String(currentTime))
         case 0:
-            speak("Done")
+            speak(nextExerciseName)
         default:
             break
         }
@@ -296,7 +302,7 @@ class SelectedWorkoutViewController: UIViewController {
         
         exerciseNumber = exNum
         
-        if exercises[exerciseNumber] == "Rest" || exercises[exerciseNumber] == "Warmup" {
+        if exercises[exerciseNumber] == "Rest" || exercises[exerciseNumber] == "Warmup" || exercises[exerciseNumber] == "Break" {
             
             dontLikeButton.hidden = false
             exerciseLabel.text = "Next: \(exercises[exerciseNumber + 1])"
@@ -311,9 +317,9 @@ class SelectedWorkoutViewController: UIViewController {
         currentTime = exerciseTimes[exerciseNumber]
         setTimerLabel(currentTime)
         
-        if timer.valid {
-            speak(exercises[exerciseNumber])
-        }
+//        if timer.valid {
+//            speak(exercises[exerciseNumber])
+//        }
         
     }
     
