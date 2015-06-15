@@ -302,24 +302,30 @@ class SelectedWorkoutViewController: UIViewController {
         
         exerciseNumber = exNum
         
+        currentTime = exerciseTimes[exerciseNumber]
+        setTimerLabel(currentTime)
+        
         if exercises[exerciseNumber] == "Rest" || exercises[exerciseNumber] == "Warmup" || exercises[exerciseNumber] == "Break" {
             
             dontLikeButton.hidden = false
             exerciseLabel.text = "Next: \(exercises[exerciseNumber + 1])"
+            
+            if timer.valid && currentTime > 3 && synth.speaking == false {
+                
+                speak("Next up, \(exercises[exerciseNumber + 1])")
+                
+            }
             
         } else {
         
             dontLikeButton.hidden = true
             exerciseLabel.text = exercises[exerciseNumber]
             
+            if timer.valid {
+                speak("Go!")
+            }
+            
         }
-        
-        currentTime = exerciseTimes[exerciseNumber]
-        setTimerLabel(currentTime)
-        
-//        if timer.valid {
-//            speak(exercises[exerciseNumber])
-//        }
         
     }
     
