@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Parse
 
 var workouts = [Dictionary<String,[String]>()]
 var editingWorkout = Dictionary<String, [String]>()
